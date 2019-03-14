@@ -1,0 +1,48 @@
+<div class="panel panel-default panel-intro">
+    <div class="panel-heading">
+        {:build_heading(null, false)}
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#all" data-toggle="tab">全部订单</a></li>
+            <li><a href="#checking" data-toggle="tab">待审核</a></li>
+            <li><a href="#pass" data-toggle="tab">已通过</a></li>
+            <li><a href="#reject" data-toggle="tab">已拒绝</a></li>
+        </ul>
+    </div>
+    <div class="panel-body">
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="one">
+                <div class="widget-body no-padding">
+                    <div id="toolbar" class="toolbar">
+                        {:build_toolbar('refresh')}
+                        {if condition="$group_id eq 1"}<button type="button" class="btn btn-primary btn-color-blue" onclick="csry()" style="margin-left: 10px;">审核员分配</button>{/if}
+                    </div>
+                    <table id="table" class="table table-striped table-bordered table-hover"
+                           data-operate-edit="{:$auth->check('user/user/edit')}"
+                           data-operate-del="{:$auth->check('user/user/del')}"
+                           width="100%">
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    function csry() {
+        // alert(selectedids($("#table")));
+        $ids = selectedids($("#table"));
+        Fast.api.open('/admin/order/allotdc/ids/'+$ids,'资料审核员');
+    }
+    function selectedids (table) {
+        var options = table.bootstrapTable('getOptions');
+        if (options.templateView) {
+            return $.map($("input[data-id][name='checkbox']:checked"), function (dom) {
+                return $(dom).data("id");
+            });
+        } else {
+            return $.map(table.bootstrapTable('getSelections'), function (row) {
+                return row[options.pk];
+            });
+        }
+    }
+</script>

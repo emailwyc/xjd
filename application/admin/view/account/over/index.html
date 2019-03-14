@@ -1,0 +1,53 @@
+<div class="panel panel-default panel-intro">
+    {:build_heading()}
+
+    <div class="panel-body">
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="one">
+                <div class="widget-body no-padding">
+                    <div id="toolbar" class="toolbar">
+                        <a href="javascript:;" class="btn btn-primary btn-refresh" title="{:__('Refresh')}" ><i class="fa fa-refresh"></i> </a>
+                        <!-- a href="javascript:;" class="btn btn-success btn-add {:$auth->check('account/over/add')?'':'hide'}" title="{:__('Add')}" ><i class="fa fa-plus"></i> {:__('Add')}</a>
+                        <a href="javascript:;" class="btn btn-success btn-edit btn-disabled disabled {:$auth->check('account/over/edit')?'':'hide'}" title="{:__('Edit')}" ><i class="fa fa-pencil"></i> {:__('Edit')}</a>
+                        <a href="javascript:;" class="btn btn-danger btn-del btn-disabled disabled {:$auth->check('account/over/del')?'':'hide'}" title="{:__('Delete')}" ><i class="fa fa-trash"></i> {:__('Delete')}</a>
+                        <a href="javascript:;" class="btn btn-danger btn-import {:$auth->check('account/over/import')?'':'hide'}" title="{:__('Import')}" id="btn-import-file" data-url="ajax/upload" data-mimetype="csv,xls,xlsx" data-multiple="false"><i class="fa fa-upload"></i> {:__('Import')}</a -->
+                        <button type="button" class="btn btn-success {:$auth->check('account/over/csry')?'':'hide'}" onclick="csry()">催收人员</button>
+
+                        <div class="dropdown btn-group {:$auth->check('account/over/multi')?'':'hide'}">
+                            <!-- a class="btn btn-primary btn-more dropdown-toggle btn-disabled disabled" data-toggle="dropdown"><i class="fa fa-cog"></i> {:__('More')}</a -->
+                            <ul class="dropdown-menu text-left" role="menu">
+                                <li><a class="btn btn-link btn-multi btn-disabled disabled" href="javascript:;" data-params="status=normal"><i class="fa fa-eye"></i> {:__('Set to normal')}</a></li>
+                                <li><a class="btn btn-link btn-multi btn-disabled disabled" href="javascript:;" data-params="status=hidden"><i class="fa fa-eye-slash"></i> {:__('Set to hidden')}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <table id="table" class="table table-striped table-bordered table-hover table-nowrap"
+                           data-operate-edit="{:$auth->check('account/over/edit')}" 
+                           data-operate-del="{:$auth->check('account/over/del')}" 
+                           width="100%">
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    function csry() {
+       // alert(selectedids($("#table")));
+        $ids = selectedids($("#table"));
+        Fast.api.open('/admin/account/over/csry/cyids/'+$ids,'催收人员');
+    }
+    function selectedids (table) {
+        var options = table.bootstrapTable('getOptions');
+        if (options.templateView) {
+            return $.map($("input[data-id][name='checkbox']:checked"), function (dom) {
+                return $(dom).data("id");
+            });
+        } else {
+            return $.map(table.bootstrapTable('getSelections'), function (row) {
+                return row[options.pk];
+            });
+        }
+    }
+</script>

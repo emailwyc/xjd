@@ -1,0 +1,373 @@
+<style type="text/css">
+    .sm-st {
+        background:#fff;
+        padding:20px;
+        -webkit-border-radius:3px;
+        -moz-border-radius:3px;
+        border-radius:3px;
+        margin-bottom:20px;
+        -webkit-box-shadow: 0 1px 0px rgba(0,0,0,0.05);
+        box-shadow: 0 1px 0px rgba(0,0,0,0.05);
+    }
+    .sm-st-icon {
+        width:60px;
+        height:60px;
+        display:inline-block;
+        line-height:60px;
+        text-align:center;
+        font-size:30px;
+        background:#eee;
+        -webkit-border-radius:5px;
+        -moz-border-radius:5px;
+        border-radius:5px;
+        float:left;
+        margin-right:10px;
+        color:#fff;
+    }
+    .sm-st-info {
+        font-size:12px;
+        padding-top:2px;
+    }
+    .sm-st-info span {
+        display:block;
+        font-size:24px;
+        font-weight:600;
+    }
+    .orange {
+        background:#fa8564 !important;
+    }
+    .tar {
+        background:#45cf95 !important;
+    }
+    .sm-st .green {
+        background:#86ba41 !important;
+    }
+    .pink {
+        background:#AC75F0 !important;
+    }
+    .yellow-b {
+        background: #fdd752 !important;
+    }
+    .stat-elem {
+
+        background-color: #fff;
+        padding: 18px;
+        border-radius: 40px;
+
+    }
+
+    .stat-info {
+        text-align: center;
+        background-color:#fff;
+        border-radius: 5px;
+        margin-top: -5px;
+        padding: 8px;
+        -webkit-box-shadow: 0 1px 0px rgba(0,0,0,0.05);
+        box-shadow: 0 1px 0px rgba(0,0,0,0.05);
+        font-style: italic;
+    }
+
+    .stat-icon {
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    .st-red {
+        background-color: #F05050;
+    }
+    .st-green {
+        background-color: #27C24C;
+    }
+    .st-violet {
+        background-color: #7266ba;
+    }
+    .st-blue {
+        background-color: #23b7e5;
+    }
+
+    .stats .stat-icon {
+        color: #28bb9c;
+        display: inline-block;
+        font-size: 26px;
+        text-align: center;
+        vertical-align: middle;
+        width: 50px;
+        float:left;
+    }
+
+    .stat {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: inline-block;
+        margin-right: 10px; }
+    .stat .value {
+        font-size: 20px;
+        line-height: 24px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 500; }
+    .stat .name {
+        overflow: hidden;
+        text-overflow: ellipsis; }
+    .stat.lg .value {
+        font-size: 26px;
+        line-height: 28px; }
+    .stat.lg .name {
+        font-size: 16px; }
+    .stat-col .progress {height:2px;}
+    .stat-col .progress-bar {line-height:2px;height:2px;}
+
+    .item {
+        padding:30px 0;
+    }
+    .col-xs-6{width:25%}
+    .dataTable{
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 40px;
+        color: #363636;
+        margin-bottom:50px;
+    }
+    .dataTable td, .dataTable th {
+        border: 1px solid #bbb;
+        text-align: center;
+        padding: 0 3px;
+    }
+</style>
+<div class="panel panel-default panel-intro">
+    <div class="panel-heading">
+        {:build_heading(null, false)}
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#one" data-toggle="tab">{:__('Dashboard')}</a></li>
+            <!--<li><a href="#two" data-toggle="tab">{:__('Custom')}</a></li>-->
+        </ul>
+    </div>
+    <div class="panel-body">
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="one">
+                <div class="row" style="margin-top:15px;height: 50px;">
+                    <div class="col-lg-12"></div>
+                    <div class="col-xs-6 col-md-3" style="width:20%;height: 150px;">
+                        <div class="panel bg-blue" style="height: 180px;">
+                            <div class="panel-body">
+                                <div class="panel-title">
+                                    <span class="label label-success pull-right">实时</span>
+                                    <h5>合同金额（元）</h5>
+                                </div>
+                                <div class="panel-content">
+                                    <h1 class="no-margins" style="text-align:center;">{$row.htAmount|default=0}</h1>
+                                    <div class="stat-percent font-bold text-gray" style="font-weight: bold;font-size: 14px;">放款笔数：{$row.fkCount|default=0}</div>
+                                    <div class="stat-percent font-bold text-gray" style="font-weight: bold;font-size: 14px;">实放本金：{$row.bjAmount|default=0}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3" style="width:20%;height: 200px;">
+                        <div class="panel bg-aqua-gradient" style="height: 180px;">
+                            <div class="panel-body">
+                                <div class="panel-content">
+                                    <span class="label label-info pull-right">实时</span>
+                                    <h5>回款总额（元）</h5>
+                                </div>
+                                <div class="panel-content">
+                                    <h1 class="no-margins" style="text-align:center;">{$row.hkAmount|default=0}</h1>
+                                    <div class="stat-percent font-bold text-gray" style="font-weight: bold;font-size: 14px;">本息回款笔数：{$row.bxhkCount|default=0}</div>
+                                    <div class="stat-percent font-bold text-gray" style="font-weight: bold;font-size: 14px;">展期次数：{$row.zqCount|default=0}</div>
+                                    <div class="stat-percent font-bold text-gray" style="font-weight: bold;font-size: 14px;">本息回款金额：{$row.bxhkAmount|default=0}</div>
+                                    <div class="stat-percent font-bold text-gray" style="font-weight: bold;font-size: 14px;">展期金额：{$row.zqAmount|default=0}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-3" style="width:20%;height: 200px;">
+                        <div class="panel bg-purple-gradient" style="height: 180px;">
+                            <div class="panel-body">
+                                <div class="ibox-title">
+                                    <span class="label label-primary pull-right">实时</span>
+                                    <h5>正常待收金额（元）</h5>
+                                </div>
+                                <div class="panel-content">
+                                    <h1 class="no-margins" style="text-align:center;">{$row.zcdsAmount|default=0}</h1>
+                                    <div class="stat-percent font-bold text-gray" style="font-weight: bold;font-size: 14px;">待收笔数：{$row.dsCount|default=0}</div>
+                                    <div class="stat-percent font-bold text-gray" style="font-weight: bold;font-size: 14px;">待收本金：{$row.dsAmount|default=0}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3" style="width:20%;height: 200px;">
+                        <div class="panel bg-green-gradient" style="height: 180px;">
+                            <div class="panel-body">
+                                <div class="ibox-title">
+                                    <span class="label label-primary pull-right">实时</span>
+                                    <h5>逾期未收金额（元）</h5>
+                                </div>
+                                <div class="panel-content">
+                                    <h1 class="no-margins" style="text-align:center;">{$row.yqAmount|default=0}</h1>
+                                    <div class="stat-percent font-bold text-gray" style="font-weight: bold;font-size: 14px;">逾期笔数：{$row.yqCount|default=0}</div>
+                                    <div class="stat-percent font-bold text-gray" style="font-weight: bold;font-size: 14px;">逾期罚息：{$row.yqbjAmount|default=0}</div>
+                                    <div class="stat-percent font-bold text-gray" style="font-weight: bold;font-size: 14px;">逾期本金： {$row.yqfxAmount|default=0}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-3" style="width:20%;height: 200px;">
+                        <div class="panel bg-aqua-gradient" style="height: 180px;">
+                            <div class="panel-body">
+                                <div class="panel-content">
+                                    <span class="label label-info pull-right">实时</span>
+                                    <h5>总盘盈亏（元）</h5>
+                                </div>
+                                <div class="panel-content">
+                                    <h1 class="no-margins" style="text-align:center;">{$row.zpykAmount|default=0}</h1>
+                                    <div class="stat-percent font-bold text-gray" style="font-weight: bold;font-size: 14px;">回款率：{$row.hkRate|default=0}</div>
+                                    <div class="stat-percent font-bold text-gray" style="font-weight: bold;font-size: 14px;">回款盈亏：{$row.hkykAmount|default=0}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="containBox" style="margin-top:180px;">
+                    <div class="">
+                        <form class="form-horizontal form-commonsearch nice-validator n-default n-bootstrap" novalidate="" method="post" action="">
+                            <fieldset>
+                                <div class="row">
+                                    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                                        <label class="control-label col-xs-4">日期</label>
+                                        <div class="col-xs-8">
+                                            <input id="datepicker" class="form-control" type="text" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                                        <div class="col-sm-8 col-xs-offset-4" style="margin-left:8%;">
+                                            <button type="button" id="search" class="btn btn-success" formnovalidate="">查询</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <table class="dataTable">
+                        <tbody>
+                        <tr>
+                            <th style="background: #DBDBDB;">今日注册</th>
+                            <th style="background: #DBDBDB;" colspan="2">进件单数</th>
+                            <th style="background: #DBDBDB;" colspan="2">通过单数</th>
+                            <th style="background: #DBDBDB;" colspan="2">放款单数</th>
+                            <th style="background: #DBDBDB;" colspan="2">进件转化率%</th>
+                        </tr>
+                        <tr>
+                            <td rowspan="3"  id="regCount">0</td>
+                            <td colspan="2"  id="jjds">0</td>
+                            <td colspan="2"  id="tgds">0</td>
+                            <td colspan="2"  id="fkds">0</td>
+                            <td rowspan="3" colspan="2"  id="jjRate">0.00</td>
+                        </tr>
+                        <tr>
+                            <th style="background: #DBDBDB;">新增</th>
+                            <th style="background: #DBDBDB;">复借</th>
+                            <th style="background: #DBDBDB;">新增</th>
+                            <th style="background: #DBDBDB;">复借</th>
+                            <th style="background: #DBDBDB;">新增</th>
+                            <th style="background: #DBDBDB;">复借</th>
+                        </tr>
+                        <tr>
+                            <td  id="jjxz">0</td>
+                            <td  id="jjfj">0</td>
+                            <td  id="tgxz">0</td>
+                            <td  id="tgfj">0</td>
+                            <td  id="fkxz">0</td>
+                            <td  id="fkfj">0</td>
+                        </tr>
+                        <tr>
+                            <th style="background: #DBDBDB;" colspan="2">到期笔数</th>
+                            <th style="background: #DBDBDB;" colspan="3">回款笔数</th>
+                            <th style="background: #DBDBDB;">到期未还笔数</th>
+                            <th style="background: #DBDBDB;">到期展期笔数</th>
+                            <th style="background: #DBDBDB;" colspan="2">到期回款率%</th>
+                        </tr>
+                        <tr>
+                            <td colspan="2" id="dqCount">0</td>
+                            <td colspan="3" id="hkCount">0</td>
+                            <td rowspan="3" id="dqwh">0</td>
+                            <td rowspan="3" id="dqzq">0</td>
+                            <td colspan="2" id="dqhkRate">0.00</td>
+                        </tr>
+                        <tr>
+                            <th style="background: #DBDBDB;">首借</th>
+                            <th style="background: #DBDBDB;">复借</th>
+                            <th style="background: #DBDBDB;">到期回款</th>
+                            <th style="background: #DBDBDB;">提前回款</th>
+                            <th style="background: #DBDBDB;">逾期回款</th>
+                            <th style="background: #DBDBDB;">首借%</th>
+                            <th style="background: #DBDBDB;">复借%</th>
+                        </tr>
+                        <tr>
+                            <td id="dqsj">0</td>
+                            <td id="dqfj">0</td>
+                            <td id="dqhk">0</td>
+                            <td id="tqhk">0</td>
+                            <td id="yqhk">0</td>
+                            <td id="sjRate">0.00</td>
+                            <td id="fjRate">0.00</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <script src="/assets/js/jquery-1.7.2.min.js"></script>
+                <script src="/assets/js/laydate.js"></script>
+                <script type="text/javascript">
+                    //执行一个laydate实例
+                    laydate.render({
+                        elem: '#datepicker' //指定元素
+                    });
+                    getInfo();
+                    $("#search").click(function(){
+                        getInfo();
+                    });
+                    function getInfo(){
+                        var d = $('#datepicker').val();
+                        $.ajax({
+                            url:'/admin/dashboard/getDayInfo.html',
+                            data:{date:d},
+                            type:'post',
+                            dataType:'json',
+                            ansyc:false,
+                            success:function(msg){
+                                $('#regCount').html(msg.regCount);
+                                $('#jjds').html(msg.jjds);
+                                $('#tgds').html(msg.tgds);
+                                $('#fkds').html(msg.fkds);
+                                $('#jjRate').html(msg.jjRate);
+                                $('#jjxz').html(msg.jjxz);
+                                $('#jjfj').html(msg.jjfj);
+                                $('#tgxz').html(msg.tgxz);
+                                $('#tgfj').html(msg.tgfj);
+                                $('#fkxz').html(msg.fkxz);
+                                $('#fkfj').html(msg.fkfj);
+                                $('#dqCount').html(msg.dqCount);
+                                $('#hkCount').html(msg.hkCount);
+                                $('#dqwh').html(msg.dqwh);
+                                $('#dqzq').html(msg.dqzq);
+                                $('#dqhkRate').html(msg.dqhkRate);
+                                $('#dqsj').html(msg.dqsj);
+                                $('#dqfj').html(msg.dqfj);
+                                $('#dqhk').html(msg.dqhk);
+                                $('#tqhk').html(msg.tqhk);
+                                $('#yqhk').html(msg.yqhk);
+                                $('#sjRate').html(msg.sjRate);
+                                $('#fjRate').html(msg.fjRate);
+                            }
+                        });
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+</div>

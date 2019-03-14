@@ -1,0 +1,46 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">支付选择</label>
+        <div class="col-xs-12 col-sm-8">
+            <select>
+                <option>富友支付</option>
+            </select>
+        </div>
+    </div>
+        <!--<div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">appId</label>
+            <div class="col-xs-12 col-sm-8">
+                <input id="c-appid" placeholder="请输入appId" class="form-control" name="row[appid]" type="text" value="{$row.appid}">
+            </div>
+        </div>-->
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">商户号:</label>
+            <div class="col-xs-12 col-sm-8">
+                <input id="c-mchntcd" class="form-control" placeholder="请输入商户号" name="row[mchntcd]" type="text" value="{$row.mchntcd}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">支付密钥:</label>
+            <div class="col-xs-12 col-sm-8">
+                <input id="c-mchntkey" class="form-control" placeholder="请输入支付密钥" name="row[mchntkey]" type="text" value="{$row.mchntkey}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">商户密钥:</label>
+            <div class="col-xs-12 col-sm-8">
+                <input id="c-paykey" class="form-control" placeholder="请输入商户密钥" name="row[paykey]" type="text" value="{$row.paykey}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2">回调地址</label>
+            <div class="col-xs-12 col-sm-8">
+                <input id="c-serverurl" class="form-control" placeholder="请输入回调地址"  name="row[serverurl]" type="text" value="{$row.serverurl}">
+            </div>
+        </div>
+        <div class="form-group layer-footer">
+            <label class="control-label col-xs-12 col-sm-2"></label>
+            <div class="col-xs-12 col-sm-8">
+                <button type="submit" class="btn btn-success btn-embossed disabled">保存</button>
+            </div>
+        </div>
+</form>

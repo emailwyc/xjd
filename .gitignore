@@ -1,0 +1,13 @@
+/.idea
+/vcs.xml
+/runtime/
+/public/upload/
+/nbproject/private/
+/nbproject/
+/application/database.php
+/application/config.php
+/.env.sample
+/online.sh
+*.swp
+*.swo
+

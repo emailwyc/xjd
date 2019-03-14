@@ -1,0 +1,85 @@
+div,body,ul,li,ol,a,img,p,b,form,label,input{padding:0;margin:0;font-family: "微软雅黑", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;color:#1e1e1e;}
+html,body{width:100%;height:100%;-webkit-tap-highlight-color:transparent;background-color:#fff;}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;font-size:100px;-webkit-user-select: none;}
+a{text-decoration:none;}
+a,button{-webkit-tap-highlight-color: transparent;}
+a:active,a:hover{outline:0;}
+ol,ul,li{list-style:none;}
+img,input{border:none;}
+img{vertical-align:middle;}
+input{-webkit-appearance:none;}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0;}
+.LeftFloat,.Business ul li,.VISATop ul li,.VisaState ul li,.VisaType dl dd span,.VISATop ul li.VISATop_li{float:left;}
+.RightFloat,.Consultation{float:right;}
+/* iphone 6 */
+@media (min-device-width : 375px) and (max-device-width : 667px) and (-webkit-min-device-pixel-ratio : 2){
+    html{font-size: 117.1875px;}
+}
+/* iphone6 plus */
+@media (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio : 3){
+    html{font-size: 129.375px;}
+}
+
+@media only screen and (min-width: 750px){
+    .HeaderOne{position:relative;width:100%;overflow:hidden;}
+    .HeaderOne b{width:100%;}
+    .HeaderOne b img{display:block;width:100%;}
+    .HeaderOne div{position:absolute;left:35%;top:50%;width:30%;}
+    .HeaderOne div form,.HeaderOne div form label{float:left;width:100%;}
+    .HeaderOne div form label input{width:98%;height:0.5rem;background:#ffffff;border-radius:7px;font-size:0.16rem;line-height:0.4rem;padding-left:2%;margin-bottom:3%;color:#6a6a6a;float:left;font-weight:300;letter-spacing:.001rem;}
+    .HeaderOne div form label input.sr{width:63%;float:left;border-radius:7px 0 0 7px}
+    .HeaderOne div form label input.yzm{float:right;width:35%;text-align:center;font-weight:inherit;color:#fff;background:#0088fa;border-radius:0 7px 7px 0;}
+    .HeaderOne div form label input.apply{width:100%;background:#0088fa;text-align:center;letter-spacing:.05rem;color:#fff;}
+
+    .HeaderOne div ul{float:left;width:100%;}
+    .HeaderOne div ul li{width:95%;height:0.4rem;background:#ffffff;border-radius:7px;font-size:0.14rem;line-height:0.4rem;padding-left:0.14rem;margin-bottom:3%;color:#6a6a6a;float:left;font-weight:300;letter-spacing:.001rem;}
+    .HeaderOne div ul li.download{width:47%;height:1.6rem;background:#0088fa;color:#fff;padding:0;text-align:center;margin-bottom:20%;}
+    .HeaderOne div ul li.download img{float:left;width:34%;padding:14% 33% 0 33%;}
+
+    .HeaderOne div.prompt_bj{position:absolute;width:100%;height:100%;left:0;top:0;background:#1e1e1e;opacity:0.5;}
+    .HeaderOne div.prompt{position:absolute;width:30%;height:2.5rem;left:35%;top:8%;background:#fff;border-radius:7px;}
+    .HeaderOne div.prompt ol li{font-size:0.14rem;text-align:center;line-height:0.28rem;color:#9E9B9E;}
+    .HeaderOne div.prompt ol li b{width:100%;font-size:0.18rem;display:inherit;line-height:0.4rem;margin-top:15%;}
+    .HeaderOne div.prompt ol li a{float:left;width:50%;margin:10% 0 0 25%;background:#eee;line-height:0.34rem;border-radius:7px;}
+
+    .HeaderOne_p{text-align: justify;}
+    .HeaderOne p{font-size:.16rem;line-height:.32rem;width:80%;margin:0 auto 2rem;}
+    .HeaderOne p span{text-indent:.2rem;display:inline-block;}
+    .HeaderOne p.top{font-size:.26rem;line-height:.8rem;width:100%;text-align:center;margin:.2rem auto 0;}
+
+}
+
+@media only screen and (max-width: 750px){
+    .HeaderOne{position:relative;width:100%;overflow:hidden;}
+    .HeaderOne b{width:100%;}
+    .HeaderOne b img{display:block;width:100%;}
+    .HeaderOne div{position:absolute;left:5%;bottom:-15%;width:90%;}
+    .HeaderOne div form,.HeaderOne div form label{float:left;width:100%;}
+    .HeaderOne div form label input{width:95%;height:0.4rem;background:#ffffff;border-radius:7px;font-size:0.14rem;line-height:0.4rem;padding-left:0.14rem;margin-bottom:3%;color:#6a6a6a;float:left;font-weight:300;letter-spacing:.001rem;}
+    .HeaderOne div form label input.sr{width:60%;float:left;border-radius:7px 0 0 7px}
+    .HeaderOne div form label input.yzm{float:right;width:35%;text-align:center;font-weight:inherit;color:#fff;background:#0088fa;border-radius:0 7px 7px 0;}
+    .HeaderOne div form label input.apply{width:100%;background:#0088fa;text-align:center;letter-spacing:.05rem;color:#fff;}
+
+    .HeaderOne div ul{float:left;width:100%;}
+    .HeaderOne div ul li{width:95%;height:0.4rem;background:#ffffff;border-radius:7px;font-size:0.14rem;line-height:0.4rem;padding-left:0.14rem;margin-bottom:3%;color:#6a6a6a;float:left;font-weight:300;letter-spacing:.001rem;}
+    .HeaderOne div ul li.download{width:47%;height:1rem;background:#0088fa;color:#fff;padding:0;text-align:center;margin-bottom:20%;}
+    .HeaderOne div ul li.download img{float:left;width:34%;padding:14% 33% 0 33%;}
+
+    .HeaderOne div.prompt_bj{position:absolute;width:100%;height:100%;left:0;top:0;background:#1e1e1e;opacity:0.5;}
+    .HeaderOne div.prompt{position:absolute;width:80%;height:2rem;left:10%;top:35%;background:#fff;border-radius:7px;}
+    .HeaderOne div.prompt ol li{font-size:0.14rem;text-align:center;line-height:0.28rem;color:#9E9B9E;}
+    .HeaderOne div.prompt ol li b{width:100%;font-size:0.18rem;display:inherit;line-height:0.4rem;margin-top:15%;}
+    .HeaderOne div.prompt ol li a{float:left;width:50%;margin:10% 0 0 25%;background:#eee;line-height:0.34rem;border-radius:7px;}
+
+    .HeaderOne_p{text-align: justify;}
+    .HeaderOne p{font-size:.14rem;line-height:.28rem;width:90%;margin:0 auto 1rem;}
+    .HeaderOne p span{text-indent:.2rem;display:inline-block;}
+    .HeaderOne p.top{font-size:.2rem;line-height:.8rem;width:100%;text-align:center;margin:0 auto;}
+}
+
+
+
+
+
+
+

@@ -1,0 +1,40 @@
+<form id="add-form" class="form-horizontal form-ajax" role="form" data-toggle="validator" method="POST" action="">
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">开始时间:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="datepicker" placeholder="yyyy-MM-dd HH:mm:ss" name="row[start_date]" value="{$row.start_date}" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">结束时间:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="email" class="form-control" id="datepicker1" placeholder="yyyy-MM-dd HH:mm:ss" name="row[end_date]" value="{$row.end_date}" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">是否启用:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_radios('row[is_use]', ['0'=>'关闭','1'=>'启用'], $row.is_use)}
+        </div>
+    </div>
+    <div class="form-group hidden layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+        </div>
+    </div>
+</form>
+<script src="/assets/js/jquery-1.7.2.min.js"></script>
+<script src="/assets/js/laydate.js"></script>
+<script type="text/javascript">
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#datepicker', //指定元素
+        type: 'datetime'
+    });
+    
+    laydate.render({
+        elem: '#datepicker1', //指定元素
+        type: 'datetime'
+    });
+</script>

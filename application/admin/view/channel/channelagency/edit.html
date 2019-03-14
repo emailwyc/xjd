@@ -1,0 +1,26 @@
+<form id="add-form" class="form-horizontal form-ajax" role="form" data-toggle="validator" method="POST" action="">
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">代理名称:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="text" class="form-control" id="agency_name" name="row[agency_name]" value="{$row.agency_name}" data-rule="required" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">代理编码:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="email" class="form-control" id="agency_code" name="row[agency_code]" value="{$row.agency_code}" data-rule="required"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">代理电话:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="email" class="form-control" id="agency_phone" name="row[agency_phone]" value="{$row.agency_phone}" />
+        </div>
+    </div>
+    <div class="form-group hidden layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+        </div>
+    </div>
+</form>

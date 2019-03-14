@@ -1,0 +1,53 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="" style="width: 65%; margin-top: 10px; float: left;">
+    <div class="form-group box-flex checkbox">
+        <label class="control-label col-xs-12 col-sm-2">
+            <input type="checkbox" id="ageSelected" checked="checked">年龄限制
+        </label>
+        <div class="col">
+            <div class="input-group box-flex checkbox">
+                <input type="text" class="form-control" id="min_age" name="row[min_age]" value="{$row.min_age}" placeholder="最小年龄" style="width:100px;">
+                <input type="text" class="form-control" id="max_age" name="row[max_age]" value="{$row.max_age}" placeholder="最大年龄" style="width:100px;margin-left:20px;">
+            </div>
+        </div>
+    </div>
+    <div class="form-group box-flex checkbox">
+        <label class="col-sm-2 control-label labelLeft">
+            <input type="checkbox" checked="checked">芝麻分
+        </label>
+        <div class="col">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="分数" id="score" name="row[score]" value="{$row.score}">
+                <div class="input-group-addon">以上</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group box-flex checkbox">
+        <label class="col-sm-2 control-label labelLeft">
+            <input type="checkbox" id="break_faith" name="row[break_faith]" value="1" checked="checked">法院失信
+        </label>
+        <div class="col" style="margin-top: 6px;">命中法院失信</div>
+    </div>
+    <div class="form-group box-flex checkbox">
+        <label class="col-sm-2 control-label labelLeft">
+            <input type="checkbox" checked="checked">地区
+        </label>
+        <select name="row[area]">
+            <option value="0">请选择</option>
+            {foreach $area as $k=>$v}
+            <option value="{$k}" {if condition="$row['area'] eq $k"}selected="selected"{/if}>{$v}</option>
+            {/foreach}
+        </select>
+    </div>
+    <div class="form-group box-flex checkbox">
+        <label class="col-sm-2 control-label labelLeft">
+            <input type="checkbox" id="is_get" name="row[is_get]" value="1" checked="checked">强制获取
+        </label>
+        <div class="col" style="margin-top: 6px;">通讯录</div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">保存</button>
+        </div>
+    </div>
+</form>

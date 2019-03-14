@@ -1,0 +1,56 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Adurl')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-adurl" class="form-control" name="row[ad_url]" placeholder="请输入android apk下载地址" type="text" value="{$row.ad_url}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Adupdateurl')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-adupdateurl" class="form-control" name="row[ad_update_url]" placeholder="请输入android apk更新包下载地址" type="text" value="{$row.ad_update_url}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Adversion')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-adversion" class="form-control" name="row[ad_version]" placeholder="请输入android 版本号" type="text" value="{$row.ad_version}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Iosurl')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-iosurl" class="form-control" name="row[ios_url]" type="text" placeholder="请输入ios ipa下载地址" value="{$row.ios_url}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Iosversion')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-iosversion" class="form-control" name="row[ios_version]" type="text" placeholder="请输入ios 版本号" value="{$row.ios_version}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">客户电话:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-mobile" class="form-control" name="row[mobile]" type="text" placeholder="请输入客户电话" value="{$row.mobile}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">客服QQ:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-qq" class="form-control" name="row[qq]" type="text" placeholder="请输入客服QQ" value="{$row.qq}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">客服微信:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-wechat" class="form-control" name="row[wechat]" type="text" placeholder="请输入客服微信" value="{$row.wechat}">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('Save')}</button>
+        </div>
+    </div>
+</form>

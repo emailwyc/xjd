@@ -1,0 +1,94 @@
+<style>
+    .telbook-css span{
+        display: inline-block;
+        width: 200px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        background-color: #B7B8BB;
+        border: 1px solid #E4E4E4;
+
+    }
+    .telbook-title-css span{
+        font-weight: bold;
+
+    }
+    table.gridtable {
+        font-family: verdana,arial,sans-serif;
+        font-size:11px;
+        color:#333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+    }
+    table.gridtable th {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #dedede;
+    }
+    table.gridtable td {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #cccccc;
+        background-color: #ffffff;
+    }
+</style>
+<div class="panel panel-default panel-intro">
+    <div class="panel-heading">
+        {:build_heading(null, false)}
+        <ul class="nav nav-tabs">
+            <li><a href="{:url('admin/Authinfo/detail',array('ids'=>$ids))}" >基本信息</a></li>
+            <li><a href="{:url('admin/Authinfo/creditReport',array('ids'=>$ids))}">诈骗行为</a></li>
+            <!--<li><a href="{:url('admin/Authinfo/fqz',array('ids'=>$ids))}">反欺诈</a></li>-->
+            <li><a href="{:url('admin/Authinfo/bqs',array('ids'=>$ids))}">多头负债</a></li>
+            <!--<li><a href="{:url('admin/Authinfo/sbzw',array('ids'=>$ids))}">设备指纹</a></li>-->
+            <li><a href="{:url('admin/Authinfo/mno',array('ids'=>$ids))}">运营商</a></li>
+            <li><a href="{:url('admin/Authinfo/tb',array('ids'=>$ids))}">淘宝</a></li>
+            <li><a href="{:url('admin/Authinfo/zxy',array('ids'=>$ids))}">大数据</a></li>
+            <li><a href="{:url('admin/Authinfo/fysx',array('ids'=>$ids))}">法院失信</a></li>
+            <li  class="active"><a href="{:url('admin/Authinfo/txl',array('ids'=>$ids))}">通讯录</a></li>
+            <li><a href="{:url('admin/Authinfo/shlogs',array('ids'=>$ids))}">审核记录</a></li>
+            <li><a href="{:url('admin/Authinfo/sixcontacts',array('ids'=>$ids))}">最近联系人</a></li>
+            <li><a href="{:url('admin/Authinfo/callrecords',array('ids'=>$ids))}">详细联系记录</a></li>
+
+        </ul>
+    </div>
+    <form class="well form-search" method="post" action="{:url('admin/Authinfo/txl',array('ids'=>$ids))}" >
+        <div class="search_type cc mb10" >
+            <div class="mb10" >
+					<span class="mr20" >
+						<input type="text" name="term" style="width: 200px;height: 30px;padding-left:10px;font-size:11px;"  value="{$term}"
+                               placeholder="请输入姓名/手机号" >
+						&nbsp;&nbsp;
+						<input type="submit" class="btn btn-primary" value="搜索" />
+					</span >
+            </div >
+        </div >
+    </form >
+    <!-- div class="panel-body">
+        <div class="telbook-css telbook-title-css">共{$count}条记录</div>
+        <div class="telbook-css telbook-title-css"><span>姓名</span><span>手机号</span></div>
+        {foreach name="txlinfo" item="value"}
+        <div class="telbook-css"><span>{$value['linkname']}</span><span>{$value['phone']}</span></div>
+        {/foreach}
+    </div -->
+    <div class="panel-body">
+        <table class="gridtable" style="width:100%;text-align: center">
+            <tr >
+                <td  colspan="2" style="text-align: left;font-weight: bold;color: #0e8cd9;font-size:13px;">&nbsp;&nbsp;共{$count}条记录</td >
+         </tr >
+         <tr >
+              <td  style="width:200px;background-color: #f2f2f2;font-weight: bold">姓名：</td >
+              <td  style="width:200px;background-color: #f2f2f2;font-weight: bold">手机号：</td >
+        </tr >
+          {volist name="txlinfo" id="vo"}
+            <tr >
+                <td >{$vo.linkname}</td >
+                <td >{$vo.phone}</td >
+        {/volist}
+        </table>
+    </div>
+</div>

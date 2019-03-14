@@ -1,0 +1,106 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Code')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-code" class="form-control" name="row[code]" type="text" value="{$row.code}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Uid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-uid" class="form-control" name="row[uid]" type="number" value="{$row.uid}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Amount')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-amount" class="form-control" step="0.01" name="row[amount]" type="number" value="{$row.amount}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Pay')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pay" class="form-control" step="0.01" name="row[pay]" type="number" value="{$row.pay}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Cost')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-cost" class="form-control" step="0.01" name="row[cost]" type="number" value="{$row.cost}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Overcost')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-overcost" class="form-control" step="0.01" name="row[overcost]" type="number" value="{$row.overcost}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Overday')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-overday" class="form-control" name="row[overday]" type="number" value="{$row.overday}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Starttime')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-starttime" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[starttime]" type="text" value="{$row.starttime|datetime}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Endtime')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-endtime" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[endtime]" type="text" value="{$row.endtime|datetime}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Rollnum')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-rollnum" class="form-control" name="row[rollnum]" type="number" value="{$row.rollnum}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-status" class="form-control" name="row[status]" type="number" value="{$row.status}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Dcid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-dcid" class="form-control" name="row[dcid]" type="number" value="{$row.dcid}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Allotdcid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-allotdcid" class="form-control" name="row[allotdcid]" type="number" value="{$row.allotdcid}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Fcid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-fcid" class="form-control" name="row[fcid]" type="number" value="{$row.fcid}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Allotfcid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-allotfcid" class="form-control" name="row[allotfcid]" type="number" value="{$row.allotfcid}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Cycle')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-cycle" class="form-control" name="row[cycle]" type="number" value="{$row.cycle}">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

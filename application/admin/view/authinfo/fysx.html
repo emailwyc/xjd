@@ -1,0 +1,80 @@
+<style>
+    .idcard-css img{
+        display: inline-block;
+        width: 200px;
+        margin-right: 30px;
+        margin-top: 10px;
+    }
+    table.gridtable {
+        font-family: verdana,arial,sans-serif;
+        font-size:11px;
+        color:#333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+    }
+    table.gridtable th {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #dedede;
+    }
+    table.gridtable td {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #cccccc;
+        background-color: #ffffff;
+    }
+</style>
+<div class="panel panel-default panel-intro">
+    <div class="panel-heading">
+        {:build_heading(null, false)}
+        <ul class="nav nav-tabs">
+            <li><a href="{:url('admin/Authinfo/detail',array('ids'=>$ids))}" >基本信息</a></li>
+            <li><a href="{:url('admin/Authinfo/creditReport',array('ids'=>$ids))}">诈骗行为</a></li>
+            <!--<li><a href="{:url('admin/Authinfo/fqz',array('ids'=>$ids))}">反欺诈</a></li>-->
+            <li><a href="{:url('admin/Authinfo/bqs',array('ids'=>$ids))}">多头负债</a></li>
+            <!--<li><a href="{:url('admin/Authinfo/sbzw',array('ids'=>$ids))}">设备指纹</a></li>-->
+            <li><a href="{:url('admin/Authinfo/mno',array('ids'=>$ids))}">运营商</a></li>
+            <li><a href="{:url('admin/Authinfo/tb',array('ids'=>$ids))}">淘宝</a></li>
+            <li><a href="{:url('admin/Authinfo/zxy',array('ids'=>$ids))}">大数据</a></li>
+            <li class="active"><a href="{:url('admin/Authinfo/fysx',array('ids'=>$ids))}">法院失信</a></li>
+            <li><a href="{:url('admin/Authinfo/txl',array('ids'=>$ids))}">通讯录</a></li>
+            <li><a href="{:url('admin/Authinfo/shlogs',array('ids'=>$ids))}">审核记录</a></li>
+            <li><a href="{:url('admin/Authinfo/sixcontacts',array('ids'=>$ids))}">最近联系人</a></li>
+            <li><a href="{:url('admin/Authinfo/callrecords',array('ids'=>$ids))}">详细联系记录</a></li>
+
+        </ul>
+    </div>
+    <div class="panel-body">
+        {empty name="detail_arr"}
+           未命中法院失信
+        {else /}
+         <table class="gridtable" style="width:100%;">
+              {volist name="detail_arr" id="vo"}
+                <tr >
+                    <td colspan="2"></td >
+                </tr >
+                <tr >
+                    <td >规则名称：</td >
+                    <td >{$vo.ruleName}</td >
+                </tr >
+                 <tr >
+                    <td >规则击中信息：</td >
+                    <td >{$vo.memo}</td >
+                </tr >
+                <tr >
+                    <td >决策结果：</td >
+                    <td >{$vo.decision}</td >
+                </tr >
+                 <tr style="display: none">
+                    <td >规则风险系数：</td >
+                    <td >{$vo.score}</td >
+                </tr >
+            {/volist}
+        </table>
+        {/empty}
+    </div>
+</div>

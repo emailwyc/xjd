@@ -1,0 +1,283 @@
+<style >
+    .idcard-css img {
+        display: inline-block;
+        width: 200px;
+        margin-right: 30px;
+        margin-top: 10px;
+    }
+
+    table.gridtable {
+        font-family: verdana, arial, sans-serif;
+        font-size: 11px;
+        color: #333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+    }
+
+    table.gridtable th {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #DEDEDE;
+    }
+
+    table.gridtable td {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #CCCCCC;
+        background-color: #FFFFFF;
+    }
+</style >
+<div class="panel panel-default panel-intro" >
+    <div class="panel-heading" >
+        {:build_heading(null, false)}
+        <ul class="nav nav-tabs" >
+            <li><a href="{:url('admin/Authinfo/detail',array('ids'=>$ids))}" >基本信息</a></li>
+            <li class="active"><a href="{:url('admin/Authinfo/creditReport',array('ids'=>$ids))}">诈骗行为</a></li>
+            <!--<li><a href="{:url('admin/Authinfo/fqz',array('ids'=>$ids))}">反欺诈</a></li>-->
+            <li><a href="{:url('admin/Authinfo/bqs',array('ids'=>$ids))}">多头负债</a></li>
+            <!--<li><a href="{:url('admin/Authinfo/sbzw',array('ids'=>$ids))}">设备指纹</a></li>-->
+            <li><a href="{:url('admin/Authinfo/mno',array('ids'=>$ids))}">运营商</a></li>
+            <li><a href="{:url('admin/Authinfo/tb',array('ids'=>$ids))}">淘宝</a></li>
+            <li><a href="{:url('admin/Authinfo/zxy',array('ids'=>$ids))}">大数据</a></li>
+            <li><a href="{:url('admin/Authinfo/fysx',array('ids'=>$ids))}">法院失信</a></li>
+            <li><a href="{:url('admin/Authinfo/txl',array('ids'=>$ids))}">通讯录</a></li>
+            <li><a href="{:url('admin/Authinfo/shlogs',array('ids'=>$ids))}">审核记录</a></li>
+            <li><a href="{:url('admin/Authinfo/sixcontacts',array('ids'=>$ids))}">最近联系人</a></li>
+            <li><a href="{:url('admin/Authinfo/callrecords',array('ids'=>$ids))}">详细联系记录</a></li>
+
+        </ul >
+    </div >
+</div >
+<div class="panel-body" >
+        {empty name="tbinfo"}
+           暂无数据
+        {else /}
+        <?php
+            function getVal($data, $val, $defalt = '') {
+                    if (empty($val) || empty($data) || !isset($data[$val])) {
+                        return $defalt;
+                    }
+
+                    return $data[$val];
+                }
+        ?>
+        <table class="gridtable" style="width:100%;text-align: center" >
+            <tr >
+               <td colspan="4" style="width:200px;text-align: center;background-color: #F2F2F2" >风险检测报告</td >
+            </tr >
+            <tr >
+                 <td style="width:200px;" >报告编号：</td >
+                 <td style="width:200px;" >{$tbinfo.flowNo}</td >
+                 <td style="width:200px;" >报告时间：</td >
+                 <td style="width:200px;" >{$resultData.reportTime}</td >
+           </tr >
+            <tr >
+               <td colspan="4" style="width:200px;text-align: center;background-color: #F2F2F2" >用户基本信息</td >
+            </tr >
+             <tr >
+                 <td style="width:200px;" >姓名：<?php echo getVal($userInfo,'realname','无'); ?></td >
+                 <td style="width:200px;" ><?php echo getVal($resultData,'sex').'/'.getVal($resultData,'constellation'); ?></td >
+                 <td style="width:200px;" >身份证号：<?php echo getVal($userInfo,'cardid','无'); ?></td >
+            </tr >
+             <tr >
+                 <td style="width:200px;" >手机号：<?php echo getVal($user,'mobile','无'); ?></td >
+                 <td style="width:200px;" >手机号归属地：<?php echo getVal($resultData,'mobileCity','无').' '.getVal($resultData,'operator',''); ?></td >
+                 <td style="width:200px;" >居住地址：<?php echo getVal($userInfo,'dw_address','无'); ?></td >
+            </tr >
+            <tr >
+               <td colspan="4" style="width:200px;text-align: center;background-color: #F2F2F2" >风险名核查</td >
+            </tr >
+                <?php if(!empty($certNoBlackLists)){; ?>
+                    {volist name="certNoBlackLists" id="vo"}
+                        <tr >
+                         <td colspan="2" style="width:200px;" >身份证号: {$vo.riskType}</td >
+                         <td colspan="2" style="width:200px;" >{$vo.riskGrade}</td >
+                        </tr >
+                    {/volist}
+                <?php }; ?>
+                <?php if(!empty($mobileBlackLists)){; ?>
+                    {volist name="mobileBlackLists" id="vo"}
+                          <tr >
+                         <td colspan="2" style="width:200px;" >手机号: {$vo.riskType}</td >
+                         <td colspan="2" style="width:200px;" >{$vo.riskGrade}</td >
+                        </tr >
+                    {/volist}
+                <?php }; ?>
+             </tr >
+            <tr>
+               <td colspan="4" style="width:200px;text-align: center;background-color: #F2F2F2" >多头风险查询</td >
+            </tr>
+
+
+            <tr >
+               <td colspan="4" style="width:200px;text-align: center;background-color: #F2F2F2" >手机号关联设备风险查询</td >
+            </tr >
+            <?php if(!empty($totalApp)){; ?>
+                <tr >
+                    <td colspan="1" style="width:200px;" >全部应用：</td>
+                    <td colspan="1" style="width:200px;" >1 个月内手机号关联设备安装应用总数：</td >
+                    <td colspan="2" style="width:200px;" ><?php echo getVal($totalApp,'mobileRelationDeviceAppTotal1m',''); ?></td >
+                </tr >
+                <tr >
+                    <td colspan="1" style="width:200px;" ></td>
+                    <td colspan="1" style="width:200px;" >3 个月内手机号关联设备安装应用总数：</td >
+                    <td colspan="2" style="width:200px;" ><?php echo getVal($totalApp,'mobileRelationDeviceAppTotal3m',''); ?></td >
+                </tr >
+                <tr >
+                    <td colspan="1" style="width:200px;" ></td>
+                    <td colspan="1" style="width:200px;" >6 个月内手机号关联设备安装应用总数：</td >
+                    <td colspan="2" style="width:200px;" ><?php echo getVal($totalApp,'mobileRelationDeviceAppTotal6m',''); ?></td >
+                </tr >
+
+            <?php }; ?>
+
+            <?php if(!empty($loanApp)){; ?>
+            <tr >
+                <td colspan="1" style="width:200px;" >借贷类应用：</td>
+                <td colspan="1" style="width:200px;" >1 个月内手机号关联设备安装借贷类应用：</td >
+                <td colspan="2" style="width:200px;" ><?php echo getVal($loanApp,'mobileRelationDeviceAppLoan1m',''); ?></td >
+            </tr >
+             <tr >
+                <td colspan="1" style="width:200px;" ></td>
+                <td colspan="1" style="width:200px;" >3 个月内手机号关联设备安装借贷类应用：</td >
+                <td colspan="2" style="width:200px;" ><?php echo getVal($loanApp,'mobileRelationDeviceAppLoan3m',''); ?></td >
+            </tr >
+             <tr >
+                <td colspan="1" style="width:200px;" ></td>
+                <td colspan="1" style="width:200px;" >6 个月内手机号关联设备安装借贷类应用：</td >
+                <td colspan="2" style="width:200px;" ><?php echo getVal($loanApp,'mobileRelationDeviceAppLoan6m',''); ?></td >
+            </tr >
+            <?php }; ?>
+
+
+            <?php if(!empty($duboApp)){; ?>
+            <tr >
+                <td colspan="1" style="width:200px;" >赌博类应用：</td>
+                <td colspan="1" style="width:200px;" >1 个月内手机号关联设备安装赌博类应用：</td >
+                <td colspan="2" style="width:200px;" ><?php echo getVal($duboApp,'mobileRelationDeviceAppDubo1m',''); ?></td >
+            </tr >
+             <tr >
+                <td colspan="1" style="width:200px;" ></td>
+                <td colspan="1" style="width:200px;" >3 个月内手机号关联设备安装赌博类应用：</td >
+                <td colspan="2" style="width:200px;" ><?php echo getVal($duboApp,'mobileRelationDeviceAppDubo3m',''); ?></td >
+            </tr >
+             <tr >
+                <td colspan="1" style="width:200px;" ></td>
+                <td colspan="1" style="width:200px;" >6 个月内手机号关联设备安装赌博类应用：</td >
+                <td colspan="2" style="width:200px;" ><?php echo getVal($duboApp,'mobileRelationDeviceAppDubo6m',''); ?></td >
+            </tr >
+            <?php }; ?>
+
+
+            <?php if(!empty($gameApp)){; ?>
+            <tr >
+                <td colspan="1" style="width:200px;" >游戏类应用：</td>
+                <td colspan="1" style="width:200px;" >1 个月内手机号关联设备安装游戏类应用：</td >
+                <td colspan="2" style="width:200px;" ><?php echo getVal($gameApp,'mobileRelationDeviceAppGame1m',''); ?></td >
+            </tr >
+             <tr >
+                <td colspan="1" style="width:200px;" ></td>
+                <td colspan="1" style="width:200px;" >3 个月内手机号关联设备安装游戏类应用：</td >
+                <td colspan="2" style="width:200px;" ><?php echo getVal($gameApp,'mobileRelationDeviceAppGame3m',''); ?></td >
+            </tr >
+             <tr >
+                <td colspan="1" style="width:200px;" ></td>
+                <td colspan="1" style="width:200px;" >6 个月内手机号关联设备安装游戏类应用：</td >
+                <td colspan="2" style="width:200px;" ><?php echo getVal($gameApp,'mobileRelationDeviceAppGame6m',''); ?></td >
+            </tr >
+            <?php }; ?>
+
+
+            <?php if(!empty($ipApp)){; ?>
+            <tr >
+                <td colspan="1" style="width:200px;" >代理ip类应用：</td>
+                <td colspan="1" style="width:200px;" >1 个月内手机号关联设备安装代理 ip 类应用：</td >
+                <td colspan="2" style="width:200px;" ><?php echo getVal($ipApp,'mobileRelationDeviceAppIp1m',''); ?></td >
+            </tr >
+             <tr >
+                <td colspan="1" style="width:200px;" ></td>
+                <td colspan="1" style="width:200px;" >3 个月内手机号关联设备安装代理 ip 类应用：</td >
+                <td colspan="2" style="width:200px;" ><?php echo getVal($ipApp,'mobileRelationDeviceAppIp3m',''); ?></td >
+            </tr >
+             <tr >
+                <td colspan="1" style="width:200px;" ></td>
+                <td colspan="1" style="width:200px;" >6 个月内手机号关联设备安装代理 ip 类应用：</td >
+                <td colspan="2" style="width:200px;" ><?php echo getVal($ipApp,'mobileRelationDeviceAppIp6m',''); ?></td >
+            </tr >
+            <?php }; ?>
+
+            <?php if(!empty($gpsApp)){; ?>
+            <tr >
+                <td colspan="1" style="width:200px;" >篡改 gps 类应用：</td>
+                <td colspan="1" style="width:200px;" >1 个月内手机号关联设备安装篡改 gps 类应用：</td >
+                <td colspan="2" style="width:200px;" ><?php echo getVal($gpsApp,'mobileRelationDeviceAppGps1m',''); ?></td >
+            </tr >
+             <tr >
+                <td colspan="1" style="width:200px;" ></td>
+                <td colspan="1" style="width:200px;" >3 个月内手机号关联设备安装篡改 gps 类应用：</td >
+                <td colspan="2" style="width:200px;" ><?php echo getVal($gpsApp,'mobileRelationDeviceAppGps3m',''); ?></td >
+            </tr >
+             <tr >
+                <td colspan="1" style="width:200px;" ></td>
+                <td colspan="1" style="width:200px;" >6 个月内手机号关联设备安装篡改 gps 类应用：</td >
+                <td colspan="2" style="width:200px;" ><?php echo getVal($gpsApp,'mobileRelationDeviceAppGps6m',''); ?></td >
+            </tr >
+            <?php }; ?>
+
+            <tr >
+               <td colspan="4" style="width:200px;text-align: center;background-color: #F2F2F2" >复杂关系网落风险信息（强关系网络）</td >
+            </tr>
+             <tr >
+               <td colspan="4" style="width:200px;text-align: center;background-color: #F2F2F2" >关联信息监测</td >
+            </tr>
+
+            <?php if(!empty($mobileRelationship)){; ?>
+            <tr >
+                <td colspan="1" style="width:200px;" >手机号：</td>
+                <td colspan="1" style="width:200px;" >180 天内用户手机号关联身份证：</td >
+                <td colspan="2" style="width:200px;" ><?php echo getVal($mobileRelationship,'mobileRelationIdcCount',''); ?></td >
+            </tr >
+             <tr >
+                <td colspan="1" style="width:200px;" ></td>
+                <td colspan="1" style="width:200px;" >180 天内用户手机号关联设备个数：</td >
+                <td colspan="2" style="width:200px;" ><?php echo getVal($mobileRelationship,'mobileRelationDevCount',''); ?></td >
+            </tr >
+             <tr >
+                <td colspan="1" style="width:200px;" ></td>
+                <td colspan="1" style="width:200px;" >180 天内用户手机号关联邮箱个数：</td >
+                <td colspan="2" style="width:200px;" ><?php echo getVal($mobileRelationship,'mobileRelationEmailCount',''); ?></td >
+            </tr >
+            <?php }; ?>
+
+
+            <?php if(!empty($certNoRelationship)){; ?>
+            <tr >
+                <td colspan="1" style="width:200px;" >身份证：</td>
+                <td colspan="1" style="width:200px;" >180 天内用户身份证关联身份证：</td >
+                <td colspan="2" style="width:200px;" ><?php echo getVal($certNoRelationship,'certNoRelationMobileCount',''); ?></td >
+            </tr >
+             <tr >
+                <td colspan="1" style="width:200px;" ></td>
+                <td colspan="1" style="width:200px;" >180 天内用户身份证关联设备个数：</td >
+                <td colspan="2" style="width:200px;" ><?php echo getVal($certNoRelationship,'certNoRelationDevCount',''); ?></td >
+            </tr >
+             <tr >
+                <td colspan="1" style="width:200px;" ></td>
+                <td colspan="1" style="width:200px;" >180 天内用户身份证关联邮箱个数：</td >
+                <td colspan="2" style="width:200px;" ><?php echo getVal($certNoRelationship,'certNoRelationEmailCount',''); ?></td >
+            </tr >
+            <?php }; ?>
+
+        </table >
+
+           <tr >
+               <td colspan="4" style="width:200px;text-align: center;background-color: #F2F2F2" >关联信息监测</td >
+            </tr>
+
+
+        {/empty}
+    </div >

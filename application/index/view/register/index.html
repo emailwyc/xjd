@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes"/>
+    <meta name="browsermode" content="application"/>
+    <title>渠道注册页面</title>
+    <link href="/assets/css/style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/assets/js/jquery-1.7.2.min.js" ></script>
+</head>
+<body>
+<!-- 头部 -->
+<div class="HeaderOne">
+    <b class="LeftFloat"><img id="pic" src="{$templates.template_preview_app|default='/assets/img/register/def.png'}"/> </b>
+    <div class="RightFloat">
+        <form>
+            <label>
+                <input type="text" id="mobile" placeholder="请输入手机号" maxLength="11" oninput="value=value.replace(/[^\d]/g,'')"/>
+            </label>
+            <label>
+                <input type="text" id="code" placeholder="请输入短信验证码" class="sr" maxLength="6"/>
+                <input type="button" value="获取验证码" id="getCode" class="yzm" />
+            </label>
+            <label>
+                <a href="javascript:void(0);"><input type="button" id="sub" value="立即申请" class="apply"></a>
+            </label>
+            <input type="hidden" id="channel_code" value="{$Think.get.channelCode|default=''}" />
+        </form>
+        <p style="font-size: .12rem;line-height: .16rem;text-align: center;color:#fff;font-weight: 100;">注册即代表您同意
+            <a href="/register/protocol.html" target="_self" style="color:#fff;">《用户注册协议》</a>
+        </p>
+    </div>
+
+    <div class="prompt_bj" id="mc" style="display:none;"></div>
+    <div class="prompt" id="ts" style="display:none;">
+        <ol>
+            <li><b>温馨提示</b></li>
+            <li id="tip"></li>
+            <li><a href="javascript:void(0)" onclick="remind(0)">确定</a></li>
+        </ol>
+    </div>
+</div>
+<script type="text/javascript">
+    var sUserAgent = navigator.userAgent.toLowerCase();
+    var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+    var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+    var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+    var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+    var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+    var bIsAndroid = sUserAgent.match(/android/i) == "android";
+    var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+    var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+    var url = '';
+    if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+        url = "{$templates.template_preview_app|default='/assets/img/register/def.png'}";
+    } else {
+        url = "{$templates.template_preview_pc|default='/assets/img/register/def_PC.png'}"
+    }
+    $('#pic').attr('src',url);
+</script>
+<script type="text/javascript">
+    var time = 0;
+    function remind(type){
+        if(type == 0){
+            $("#mc").hide();
+            $("#ts").hide();
+        }else{
+            $("#mc").show();
+            $("#ts").show();
+        }
+    }
+    function timedown() {
+        $("#getCode").val( time+'s');
+        time = time - 1;
+        if (time > 0) {
+            setTimeout(function () {
+                timedown(time);
+            }, 1000);
+        } else {
+            $("#getCode").val("获取验证码");
+        }
+    }
+    $("#getCode").click(function(){
+        if(time != 0){
+            return false;
+        }
+        var mobile = $("#mobile").val();
+        if(mobile == ''){
+            $("#tip").html('请输入手机号');
+            remind(1);
+            return false;
+        }
+        var reg = /^1[0-9]{10}$/;
+        if (reg.test(mobile) == false) {
+            $("#tip").html('手机号格式不正确');
+            remind(1);
+            return false;
+        }
+        $.ajax({
+            url: "/register/send",
+            data: {mobile:mobile},
+            type:'post',
+            dataType:'json',
+            async: false,
+            success: function(msg) {
+                if(msg.code == 1){
+                    time = 60;
+                    timedown();
+                }else{
+                    $("#tip").html(msg.message);
+                    remind(1);
+                }
+            }
+        });
+    });
+
+    $("#sub").click(function () {
+        var mobile = $("#mobile").val();
+        var code = $("#code").val();
+        var channel_code = $("#channel_code").val();
+        if(mobile == ''){
+            $("#tip").html('请输入手机号');
+            remind(1);
+            return false;
+        }
+        if(code == ''){
+            $("#tip").html('请输入验证码');
+            remind(1);
+            return false;
+        }
+        var reg = /^1[0-9]{10}$/;
+        if (reg.test(mobile) == false) {
+            $("#tip").html('手机号格式不正确');
+            remind(1);
+            return false;
+        }
+        $.ajax({
+            url: "/register/index",
+            data: {mobile:mobile,code:code,channel_code:channel_code},
+            type:'post',
+            dataType:'json',
+            async: false,
+            success: function(msg) {
+                if(msg.code == 1){
+                    window.location.href = '/register/download.html'
+                }else{
+                    $("#tip").html(msg.message);
+                    remind(1);
+                    return false;
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>
