@@ -1,0 +1,139 @@
+#!/usr/bin/env bash
+#init param
+name=base
+
+sql_path="/var/www/html/xjd_server"
+sql_path_jrmd="/var/www/html/xjd_server_jrmd"
+declare -A sql_arr
+declare -A push_remote
+
+branch=(master1.0 master1.2)
+if [[ "$1" = "test" ]]; then
+    push_remote["t10"]=master1.0 #定义处
+    push_remote["t12"]=master1.2 #定义处
+    push_remote["t20"]=master2.0 #定义处
+elif [[ "$1" = "online" ]]; then
+    push_remote["master"]=master1.2 #备份
+    #push_remote["jyj"]=master1.0 #急用金
+    push_remote["bcd"]=master1.2 #奔驰贷
+    push_remote["jjqb"]=master1.2 #金桔钱包
+    push_remote["lqd"]=master1.0 #零钱袋
+    push_remote["jrmd"]=master1.2 #今日秒到
+    push_remote["hxj"]=master1.0 #好像借
+    push_remote["zcm"]=master1.2 #zhaocaimao
+    push_remote["xkw"]=master1.2 #xiakuanwang
+    push_remote["cszz"]=master1.2 #财神周转
+
+elif [[ "$1" = "ssh" ]]; then
+    sql_arr[sshtest-10]=${sql_path}"/master1.0" #定义处
+    sql_arr[sshtest-12]=${sql_path}"/master1.2" #定义处
+    sql_arr[sshtest-20]=${sql_path}"/master2.0" #定义处
+    sql_arr[sshbf]=${sql_path}  #备份
+    sql_arr[sshjyj]=${sql_path} #急用金
+    sql_arr[sshbcd]=${sql_path} #奔驰贷
+    sql_arr[sshmjd]=${sql_path} #奔驰贷
+    sql_arr[sshlqd]=${sql_path} #零钱袋
+    sql_arr[sshjrmd]=${sql_path_jrmd} #今日秒到
+    sql_arr[sshhxj]=${sql_path} #好像借
+    sql_arr[sshzcm]=${sql_path} #zhaocaimao
+    sql_arr[sshxkw]=${sql_path} #xkw
+    sql_arr[sshcszz]=${sql_path} #财神周转
+else
+    echo "not match remote!";exit;
+fi
+
+#init param end
+
+
+
+
+#判断是否有错误发生
+iserror(){
+    if [[  $? -ne 0 ]];then
+        echo -e "\e[1;41m ---------------------------------------客官，出现错误啦--------------------------------- \e[0m"$?
+        exit $?
+    fi
+}
+say_info(){
+    echo -e "\n \e[1;36m ------"$1"------- \e[0m"
+}
+
+
+##########################################SQL-监控磁盘健康-语句同步##########################################
+if [[ "$2" = "sql" ]]; then
+    shopt -s expand_aliases
+    source ~/.bashrc
+    if [[ ${#sql_arr[@]}>0 ]]; then
+        say_info "同步sql开始"
+        for sql in ${!sql_arr[*]}
+        do
+            say_info "正在同步"${sql}"服务器"
+            eval ${sql%-*} -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no << eeooff-soone
+            cd ${sql_arr[$sql]} && pwd
+            source /etc/profile
+            sudo php think Tsy -t sshd -i $3
+            exit
+eeooff-soone
+        done
+        say_info "同步结束"
+        exit
+    fi
+fi
+
+if [[ "$2" = "df" ]]; then
+    shopt -s expand_aliases
+    source ~/.bashrc
+    if [[ ${#sql_arr[@]}>0 ]]; then
+        for sql in ${!sql_arr[*]}
+        do
+            say_info "服务器"${sql}"健康状况"
+            eval ${sql%-*} -q -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no << eeooff-soone
+            df
+            exit
+eeooff-soone
+        done
+        exit
+    fi
+fi
+
+
+##########################################提交代码逻辑##########################################
+git co ${name}  1>/dev/null 2>&1;
+say_info "推送"${name}"代码"
+git push origin ${name}
+iserror
+
+for i in ${branch[@]}
+do
+    echo -e "\e[1;36m ---------------------------------------部署"$i"版本------------------------------ \e[0m"
+    git co ${i}  1>/dev/null 2>&1;
+    say_info "拉取代码"
+
+    git ll origin ${i};
+    say_info "合并代码"
+
+    git merge ${name}
+    iserror
+    say_info "推送代码"
+
+    git push origin ${i}
+    iserror
+    #推送分支到服务器
+    for j in ${!push_remote[*]}
+    do
+        if [[ ${i} = ${push_remote[$j]} ]];then
+            say_info "上线:"$j";--版本:"${i}
+            if [[ "$1" = "test" ]]; then
+                git push test ${i}
+            else
+                git push $j ${i}
+            fi
+            iserror
+        fi
+    done
+
+
+done
+    #echo -e "\e[1;36m ------您分别部署了"$1"环境的"${branch[@]}"版本 \e[0m";
+
+git co ${name} 1>/dev/null 2>&1;

@@ -143,6 +143,10 @@ return [
 
 
 
-    'user/facematch' => 'api/client.UserInfo/facematch'
+    'user/facematch' => 'api/client.UserInfo/facematch',
+
+
+
+    'permit/index' => 'index/permit/index',
 
 ];

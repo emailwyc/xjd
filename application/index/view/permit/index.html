@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>document</title>
+    <link rel="stylesheet" href="/assets/permit/layui/css/layui.css">
+    <link rel="stylesheet" href="/assets/permit/css/created.css">
+    <style>
+        .hide {
+            display: none;
+        }
+
+        .preview-main {
+            padding-top: 20px;
+        }
+
+        .table-name {
+            line-height: 1.5;
+            margin: 20px 0;
+        }
+
+        .layui-form-label {
+            float: left;
+            display: block;
+            padding: 3px 15px;
+            width: 80px;
+            font-weight: 400;
+            line-height: 20px;
+            text-align: right;
+        }
+
+        .up-input {
+            width: 100%;
+            height: 30px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .up-file-main {
+            border: 1px solid #e6e6e6;
+            padding: 10px;
+        }
+
+        .up-main {
+            overflow: hidden;
+        }
+
+        .up-main li {
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .department-select,
+        .approval-select {
+            background: hsla(0, 0%, 100%, .1);
+            border: 1px solid rgba(0, 0, 0, .15);
+            border-radius: 4px;
+            padding: 3px 10px;
+            width: 100%;
+            outline: none;
+            font-size: 12px;
+            min-height: 29px;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        .notifier-chunk {
+            white-space: nowrap;
+            display: inline-block;
+            margin: 3px 2px;
+            padding: 2px 4px;
+            border-radius: 2px;
+            color: rgba(0, 0, 0, .65);
+            text-align: left;
+            background: #f5f5f5;
+        }
+
+        .contract li {
+            float: left;
+            min-height: 50px;
+            height: auto;
+            background: #393D49;
+            color: #FFF;
+            text-align: center;
+            margin: 5px 35px;
+            padding: 4px 10px;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .contract li:not(:last-child):after {
+            content: "";
+            display: block;
+            position: absolute;
+            background: url(http://project.souleng.net/public/static/Images/JT.png);
+            background-size: cover;
+            width: 50px;
+            height: 41px;
+            right: -60px;
+            top: 3px;
+        }
+
+        .addpepo {
+            cursor: pointer;
+            background: #5FB878 !important;
+        }
+
+        .layui-form-label {
+            width: 150px;
+        }
+
+        .layui-input-block {
+            margin-left: 150px;
+        }
+
+        @media screen and (max-width: 450px) {
+            .layui-form-item .layui-input-inline {
+                margin: 0 0 10px 160px;
+            }
+        }
+
+        .selected-textarea {
+            background: hsla(0, 0%, 100%, .1);
+            border: 1px solid rgba(0, 0, 0, .15);
+            border-radius: 4px;
+            padding: 0px;
+            width: 100%;
+            outline: none;
+            font-size: 12px;
+            min-height: 25px;
+            line-height: 25px;
+            padding-left: 10px;
+            color: #777;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .payment-items {
+            background: hsla(0, 0%, 100%, .1);
+            border: 1px solid rgba(0, 0, 0, .15);
+            border-radius: 4px;
+            padding: 0px;
+            width: 100%;
+            outline: none;
+            font-size: 12px;
+            min-height: 25px;
+            line-height: 25px;
+            padding-left: 10px;
+            color: #777;
+        }
+
+        .c_ding_btn {
+            display: inline-block;
+            padding: 5px 12px;
+            margin-bottom: 0;
+            font-size: 16px;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            border: 1px solid #c3c6ce;
+            background: #ffffff;
+            border-radius: 4px;
+            min-width: 80px;
+            color: #414141;
+            position: relative;
+        }
+
+        .c_ding_btn_primary {
+            color: #fff;
+            background-color: #38adff;
+            border-color: rgba(0, 140, 238, 0.72);
+        }
+
+        .user_selector_panel_footer .c_ding_btn+.c_ding_btn {
+            margin-left: 40px;
+        }
+        .user_selector_panel_footer{
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 99999;
+            padding: 10px 0;
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+
+<div class="fd-nav-content">
+
+
+
+
+    <!-- 流程设计 -->
+    <div class="dingflow-design dingflow-main" style="display: block;">
+        <div class="dingflow-design">
+            <div class="zoom">
+                <div class="zoom-out"></div>
+                <span data-multiple="1">100%</span>
+                <div class="zoom-in"></div>
+            </div>
+            <div class="ie-polyfill-container">
+                <div class="box-scale" id="box-scale" style="transform: scale(1); transform-origin: 50% 0px 0px;">
+                    <div class="node-wrap fixed_postion">
+                        <div class="node-wrap-box node_sid-startevent start-node ">
+                            <div>
+                                <div class="title" style="background: rgb(87, 106, 149);"><span class="">发起人</span>
+                                </div>
+                                <div class="sponsor-content">
+                                    <div class=" approval-scope-select approval-scope active">所有人</div>
+                                    <i aria-label="icon: right" class="anticon anticon-right arrow"><svg
+                                            viewBox="64 64 896 896" focusable="false" class="" data-icon="right"
+                                            width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                                        <path
+                                                d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z">
+                                        </path>
+                                    </svg></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="add-node-btn-box">
+                            <div class="add-node-btn">
+                                <button class="btn" type="button">
+                                    <span class="layui-icon layui-icon-add-1"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="node-wrap">
+                        <div class="node-wrap-box ">
+                            <div>
+                                <div class="title" style="background: rgb(255, 148, 62);"><span
+                                        class="editable-title">审批人</span><i aria-label="icon: close" tabindex="-1"
+                                                                            class="anticon anticon-close close"><svg viewBox="64 64 896 896"
+                                                                                                                     focusable="false" class="" data-icon="close" width="1em" height="1em"
+                                                                                                                     fill="currentColor" aria-hidden="true">
+                                    <path
+                                            d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z">
+                                    </path>
+                                </svg></i></div>
+                                <div class="content">
+                                    <div class="time-text"><span class="time-placeholder">请输入审批人</span></div>
+                                    <i aria-label="icon: right" class="anticon anticon-right arrow"><svg
+                                            viewBox="64 64 896 896" focusable="false" class="" data-icon="right"
+                                            width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                                        <path
+                                                d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z">
+                                        </path>
+                                    </svg></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="add-node-btn-box">
+                            <div class="add-node-btn">
+                                <button class="btn" type="button">
+                                    <span class="layui-icon layui-icon-add-1"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="end-node">
+                        <div class="end-node-circle"></div>
+                        <div class="end-node-text">流程结束</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="user_selector_panel_footer">
+    <div class="c_ding_btn c_ding_btn_primary submit-btn">确定</div>
+    <div class="c_ding_btn close-btn">取消</div>
+</div>
+
+<script src="/assets/permit/js/jquery.min.js"></script>
+<script src="/assets/permit/layui/layui.js"></script>
+<script>
+    layui.use(['form', 'layer', 'laydate'], function () {
+        var form = layui.form;
+        var layer = layui.layer
+        var laydate = layui.laydate;
+
+
+
+
+
+        // 面板缩小
+        $(document).on('click', '.zoom .zoom-out', function () {
+            var multiple = $('.zoom span').attr('data-multiple')
+            if (multiple <= 0.5) {
+                $('.zoom .zoom-out').addClass('disabled')
+                return false
+            }
+            $('.zoom .zoom-in').removeClass('disabled')
+            multiple = (multiple - 0.1).toFixed(1)
+            $('.zoom span').attr('data-multiple', multiple)
+            $('.zoom span').text((multiple * 100).toFixed(0) + '%')
+            $('#box-scale').css({
+                'transform': 'scale(' + multiple + ')'
+            })
+        })
+
+        // 面板放大
+        $(document).on('click', '.zoom .zoom-in', function () {
+            var multiple = $('.zoom span').attr('data-multiple')
+            if (multiple >= 3) {
+                $('.zoom .zoom-in').addClass('disabled')
+                return false
+            }
+            $('.zoom .zoom-out').removeClass('disabled')
+            multiple = (multiple - 0 + 0.1).toFixed(1)
+            $('.zoom span').attr('data-multiple', multiple)
+            $('.zoom span').text((multiple * 100).toFixed(0) + '%')
+            $('#box-scale').css({
+                'transform': 'scale(' + multiple + ')'
+            })
+        })
+
+
+        // 编辑条件块的名称
+        $(document).on('click', '.editable-title', function () {
+            var _this = $(this).parent()
+            var oldVal = $(this).text().trim()
+            var inputStr = $('<input type="text"  class="ant-input editable-title-input">')
+            _this.find('.editable-title').remove()
+            inputStr.val(oldVal).appendTo(_this).focus()
+            inputStr.blur(function () {
+                var newData = _this.find('input').val().trim()
+                _this.find('.editable-title-input').remove()
+                _this.find('.editable-title').remove()
+                _this.prepend(`<span class="editable-title">${newData}</span>`)
+            })
+        })
+
+        // 复制条件节点
+        $(document).on('click', '.auto-judge .copy', function () {
+            var thisStr = $(this).parents('.col-box').eq(0).prop('outerHTML')
+            $(this).parents('.col-box').eq(0).after(thisStr)
+            lineNode($(this).parents('.branch-box').eq(0).children('.col-box'))
+        })
+
+        // 新增操作面板字符串
+        var addNodeStr = `
+<div class="ant-popover ant-popover-placement" style="left: 148px;top: 6px;">
+    <div class="ant-popover-content">
+        <div class="ant-popover-arrow"></div>
+        <div class="ant-popover-inner" role="tooltip">
+            <div class="ant-popover-inner-content">
+                <div class="add-node-popover">
+                    <div class="add-node-popover-header">
+                        <i class="anticon anticon-close add-node-popover-close">
+                        <svg viewBox="64 64 896 896" focusable="false" class="" data-icon="close" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"></path></svg>
+                    </i>
+                    </div>
+                    <div class="add-node-popover-body">
+                        <a class="add-node-popover-item approver">
+                            <div class="item-wrapper">
+                                <span class="layui-icon layui-icon-friends"></span>
+                            </div>
+                            <p>审批人</p>
+                        </a>
+                        <a class="add-node-popover-item condition">
+                            <div class="item-wrapper">
+                                <span class="layui-icon layui-icon-cols"></span>
+                            </div>
+                            <p>条件分支</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+`
+
+        // 审批人增加节点面板
+        $(document).on('click', '.node-wrap .add-node-btn .btn', function () {
+            $('.ant-popover-placement').remove()
+            $('.node-wrap-box.active').removeClass('active')
+            $('.auto-judge.active').removeClass('active')
+            $('.bottom-node-btn').removeClass('active')
+            $(this).parents('.node-wrap').find('.node-wrap-box').addClass('active')
+            $(this).after(addNodeStr)
+        })
+
+        // 条件增加节点面板
+        $(document).on('click', '.condition-node .add-node-btn .btn', function () {
+            $('.ant-popover-placement').remove()
+            $('.node-wrap-box.active').removeClass('active')
+            $('.auto-judge.active').removeClass('active')
+            $('.bottom-node-btn').removeClass('active')
+            $(this).parents('.condition-node').find('.auto-judge').addClass('active')
+            $(this).after(addNodeStr)
+        })
+
+
+        // 底部按钮增加节点面板
+        $(document).on('click', '.bottom-node-btn .add-node-btn .btn', function () {
+            $('.ant-popover-placement').remove()
+            $('.node-wrap-box.active').removeClass('active')
+            $('.auto-judge.active').removeClass('active')
+            $('.bottom-node-btn').removeClass('active')
+            $(this).parents('.bottom-node-btn').addClass('active')
+            $(this).after(addNodeStr)
+        })
+
+        //    删除审批人节点
+        $(document).on('click', '.title .anticon-close', function (e) {
+            e.stopPropagation()
+            $(this).parents('.node-wrap').remove()
+        })
+
+        // 关闭新增节点面板
+        $(document).on('click', '.add-node-popover-close', function (e) {
+            e.stopPropagation()
+            $('.ant-popover-placement').remove()
+        })
+
+        // 点击页面时关闭新增节点面板
+        $(document).on('click', function (e) {
+            var modal = $('.add-node-btn')
+            if (!modal.is(e.target) && modal.has(e.target).length === 0) {
+                $('.ant-popover-placement').remove()
+            }
+        })
+
+        // 添加审批人事件
+        $(document).on('click', '.ant-popover-placement .approver', function () {
+            var str = `
+    <div class="node-wrap">
+        <div class="node-wrap-box active">
+            <div>
+                <div class="title" style="background: rgb(255, 148, 62);"><span class="editable-title">审批人</span><i aria-label="icon: close" tabindex="-1" class="anticon anticon-close close"><svg viewBox="64 64 896 896" focusable="false" class="" data-icon="close" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"></path></svg></i></div>
+                <div class="content">
+                    <div class="time-text"><span class="time-placeholder">请输入审批人</span></div>
+                    <i aria-label="icon: right" class="anticon anticon-right arrow"><svg viewBox="64 64 896 896" focusable="false" class="" data-icon="right" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg></i>
+                </div>
+            </div>
+        </div>
+        <div class="add-node-btn-box">
+            <div class="add-node-btn">
+                <button class="btn" type="button">
+                    <span class="layui-icon layui-icon-add-1"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+`
+            var appendNode
+            var wrapNode = $('.node-wrap-box.active').length
+            var judgeNode = $('.auto-judge.active').length
+            var btnNode = $('.bottom-node-btn.active').length
+            if (btnNode == 0 && judgeNode == 0) {
+                appendNode = $('.node-wrap-box.active').parent()
+            } else if (wrapNode == 0 && btnNode == 0) {
+                appendNode = $('.auto-judge.active').parents('.condition-node')
+            } else {
+                appendNode = $('.bottom-node-btn.active').parents('.branch-wrap').eq(0)
+            }
+            $('.node-wrap-box.active').removeClass('active')
+            $('.auto-judge.active').removeClass('active')
+            $('.bottom-node-btn').removeClass('active')
+            appendNode.after(str)
+            $('.ant-popover-placement').hide()
+        })
+
+
+
+
+        //设置审批时效
+        $(document).on('click', '.node-wrap-box .time-text', function () {
+            $('.node-wrap-box.active').removeClass('active')
+            $(this).parents('.node-wrap').find('.node-wrap-box').addClass('active')
+            var timeVal = $(this).find('.time-placeholder').attr('data-index')
+            layer.prompt({
+                formType: 0,
+                value: timeVal,
+                title: '请输入审批人',
+            }, function (value, index, elem) {
+                if (value == '') {
+                    layer.msg("请输入审批人")
+                    return false
+                }
+                $('.node-wrap-box.active .time-text').find('.time-placeholder').text(`${value}`)
+                $('.node-wrap-box.active .time-text').find('.time-placeholder').attr('data-index', value)
+                layer.close(index);
+            });
+        })
+
+        //递归收集数据
+        function collectData(objData,nodes){
+            for(let i in nodes){
+                let className = nodes[i].className;
+                if(className=="node-wrap"){
+                    let tx = $(nodes[i]).find('.time-placeholder').text();
+                    //if (tx == '' || tx=="请输入审批人") {return 1;}
+                    $(objData).push({"type":"node","val":tx});
+                }
+                if(className=="branch-wrap"){
+                    let branchTD = {"type":"branch","val":{}};
+                    let brnode = $(nodes[i]).find('.branch-box').children();
+                    for(let j in brnode) {
+                        if(brnode[j].className=="col-box") {
+                            let tx1 = $(brnode[j]).find('.editable-title').text();
+                            $(branchTD.val).push({"type":"branch", "val":tx1, "childs":{}});
+                            console.log(branchTD);
+                            $(objData).push(branchTD);
+                        }
+                    }
+                    $(objData).push(branchTD);
+                }
+                console.log(objData);
+            }
+            console.log(objData);
+            return $(objData);
+        }
+        //提交后台存储；
+        $(document).on('click', '.c_ding_btn_primary', function () {
+                let objData={};
+                let permit_obj = $('#box-scale').children();//获取所有子节点
+                //递归遍历树结构
+                objData = collectData(objData,permit_obj);
+                if(objData==1){layer.msg("请输入审批人");}
+                return false;
+            });
+
+        // 新增条件分支流程
+        $(document).on('click', '.ant-popover-placement .condition', function () {
+            var appendNode
+            var wrapNode = $('.node-wrap-box.active').length
+            var judgeNode = $('.auto-judge.active').length
+            var btnNode = $('.bottom-node-btn.active').length
+            if (btnNode == 0 && judgeNode == 0) {
+                appendNode = $('.node-wrap-box.active').parent()
+            } else if (wrapNode == 0 && btnNode == 0) {
+                appendNode = $('.auto-judge.active').parents('.condition-node')
+            } else {
+                appendNode = $('.bottom-node-btn.active').parents('.branch-wrap').eq(0)
+            }
+            var afterNode = appendNode.nextAll(':not(".end-node,.top-right-cover-line,.bottom-right-cover-line")')
+            var afterStr = ''
+            afterNode.each(function () {
+                afterStr += $(this).prop('outerHTML')
+            })
+            var nodeStr = `
+    <div class="branch-wrap">
+        <div class="branch-box-wrap">
+            <div class="branch-box"><button class="add-branch">添加条件</button>
+                <div class="col-box">
+                    <div class="top-left-cover-line"></div>
+                    <div class="bottom-left-cover-line"></div>
+                    <div class="condition-node">
+                        <div class="condition-node-box">
+                            <div class="auto-judge">
+                                <div class="title-wrapper"><span class="editable-title">条件1</span><span class="priority-title">优先级1</span><svg class="svg-icon copy" viewBox="0 0 1024 1024" width="1em" height="1em"><defs><style></style></defs><path d="M637.873 157.538c60.731 0 110.829 47.262 110.829 106.496v576.119c0 55.768-44.348 100.824-100.274 105.944l-10.555.552H160.532c-60.81 0-110.907-47.262-110.907-106.496V264.034c0-59.313 50.097-106.496 110.828-106.496h477.341zm0 68.924H160.532c-23.631 0-41.984 17.329-41.984 37.572v576.119c0 20.243 18.353 37.573 41.905 37.573h477.341c23.631 0 41.984-17.33 41.984-37.573V264.034c0-20.322-18.353-37.572-41.905-37.572zM834.796 0c60.731 0 110.829 47.262 110.829 106.496v576.118c0 59.235-50.098 106.496-110.829 106.496a34.422 34.422 0 01-6.222-68.372l6.222-.55c23.631 0 41.906-17.33 41.906-37.574V106.496c0-20.322-18.354-37.573-41.906-37.573H357.455c-21.032 0-37.81 13.627-41.354 30.956l-.63 6.617a34.422 34.422 0 11-68.923 0C246.548 47.183 296.645 0 357.376 0h477.342zM426.772 491.284a43.323 43.323 0 010 86.646H253.479a43.323 43.323 0 010-86.646h173.293zm86.646-173.293a43.323 43.323 0 010 86.647H253.479a43.323 43.323 0 010-86.647h259.939z"></path></svg>
+                                    <svg class="svg-icon close" viewBox="0 0 1024 1024" width="1em" height="1em">
+                                        <path d="M512 451.67L768.427 195.2a42.667 42.667 0 1160.373 60.33L572.31 512 828.8 768.427a42.667 42.667 0 11-60.33 60.373L512 572.31 255.573 828.8a42.667 42.667 0 11-60.373-60.33L451.69 512 195.2 255.573a42.667 42.667 0 1160.33-60.373L512 451.69z"></path>
+                                        </svg>
+                                </div>
+                                <div class="content">条件</div>
+                                <div class="sort-right"><svg class="svg-icon right" viewBox="0 0 1024 1024" width="1em" height="1em"><defs><style></style></defs><path d="M638.362 529.203l-373.76-373.76a27.955 27.955 0 010-39.629l39.526-39.628a27.955 27.955 0 0139.629 0l433.152 433.152a27.955 27.955 0 010 39.628L343.757 982.118a27.955 27.955 0 01-39.629 0l-39.629-39.526a27.955 27.955 0 010-39.526l373.863-373.863z"></path></svg></div>
+                            </div>
+                            <div class="add-node-btn"><button class="btn" type="button"><span class="layui-icon layui-icon-add-1"></span></button></div>
+                        </div>
+                    </div>
+                    ${afterStr}
+                </div>
+                <div class="col-box">
+                    <div class="condition-node">
+                        <div class="condition-node-box">
+                            <div class="auto-judge">
+                                <div class="sort-left"><svg class="svg-icon left" viewBox="0 0 1024 1024" width="1em" height="1em"><defs><style></style></defs><path d="M403.046 529.203l373.863-373.76a27.955 27.955 0 000-39.629l-39.527-39.628a27.955 27.955 0 00-39.628 0L264.602 509.338a27.955 27.955 0 000 39.628l433.152 433.152a27.814 27.814 0 0039.628 0l39.527-39.526a27.955 27.955 0 000-39.526l-373.76-373.863z"></path></svg></div>
+                                <div class="title-wrapper"><span class="editable-title">条件2</span><span class="priority-title">优先级2</span><svg class="svg-icon copy" viewBox="0 0 1024 1024" width="1em" height="1em"><defs><style></style></defs><path d="M637.873 157.538c60.731 0 110.829 47.262 110.829 106.496v576.119c0 55.768-44.348 100.824-100.274 105.944l-10.555.552H160.532c-60.81 0-110.907-47.262-110.907-106.496V264.034c0-59.313 50.097-106.496 110.828-106.496h477.341zm0 68.924H160.532c-23.631 0-41.984 17.329-41.984 37.572v576.119c0 20.243 18.353 37.573 41.905 37.573h477.341c23.631 0 41.984-17.33 41.984-37.573V264.034c0-20.322-18.353-37.572-41.905-37.572zM834.796 0c60.731 0 110.829 47.262 110.829 106.496v576.118c0 59.235-50.098 106.496-110.829 106.496a34.422 34.422 0 01-6.222-68.372l6.222-.55c23.631 0 41.906-17.33 41.906-37.574V106.496c0-20.322-18.354-37.573-41.906-37.573H357.455c-21.032 0-37.81 13.627-41.354 30.956l-.63 6.617a34.422 34.422 0 11-68.923 0C246.548 47.183 296.645 0 357.376 0h477.342zM426.772 491.284a43.323 43.323 0 010 86.646H253.479a43.323 43.323 0 010-86.646h173.293zm86.646-173.293a43.323 43.323 0 010 86.647H253.479a43.323 43.323 0 010-86.647h259.939z"></path></svg>
+                                    <svg class="svg-icon close" viewBox="0 0 1024 1024" width="1em" height="1em">
+                                    <defs>
+                                        <style></style>
+                                    </defs>
+                                    <path d="M512 451.67L768.427 195.2a42.667 42.667 0 1160.373 60.33L572.31 512 828.8 768.427a42.667 42.667 0 11-60.33 60.373L512 572.31 255.573 828.8a42.667 42.667 0 11-60.373-60.33L451.69 512 195.2 255.573a42.667 42.667 0 1160.33-60.373L512 451.69z"></path>
+                                    </svg>
+                                </div>
+                                <div class="content">条件</div>
+                            </div>
+                            <div class="add-node-btn"><button class="btn" type="button"><span class="layui-icon layui-icon-add-1"></span></button></div>
+                        </div>
+                    </div>
+                    <div class="top-right-cover-line"></div>
+                    <div class="bottom-right-cover-line"></div>
+                </div>
+            </div>
+            <div class="add-node-btn-box bottom-node-btn">
+                <div class="add-node-btn"><button class="btn" type="button"><span class="layui-icon layui-icon-add-1"></span></button></div>
+            </div>
+        </div>
+    </div>
+    `
+            if ($(this).parents('.col-box').eq(0).siblings('.col-box').length == 1) {
+                if ($(this).parents('.col-box').eq(0).index() == 2) {
+                    nodeStr += `<div class="top-right-cover-line"></div><div class="bottom-right-cover-line"></div>`
+                }
+            }
+            appendNode.nextAll(':not(".end-node")').remove()
+            appendNode.after(nodeStr)
+            $('.ant-popover-placement').hide()
+        })
+
+
+        // 添加平行条件
+        $(document).on('click', '.add-branch', function () {
+            var colNodeLength = $(this).siblings('.col-box').length + 1
+            var rowNodeStr = `
+                <div class="col-box">
+                    <div class="top-right-cover-line"></div>
+                    <div class="bottom-right-cover-line"></div>
+                    <div class="condition-node">
+                        <div class="condition-node-box">
+                            <div class="auto-judge">
+                                <div class="sort-left"><svg class="svg-icon left" viewBox="0 0 1024 1024" width="1em" height="1em"><defs></defs><path d="M403.046 529.203l373.863-373.76a27.955 27.955 0 000-39.629l-39.527-39.628a27.955 27.955 0 00-39.628 0L264.602 509.338a27.955 27.955 0 000 39.628l433.152 433.152a27.814 27.814 0 0039.628 0l39.527-39.526a27.955 27.955 0 000-39.526l-373.76-373.863z"></path></svg></div>
+                                <div class="title-wrapper">
+                                    <span class="editable-title">条件${colNodeLength}</span>
+                                    <span class="priority-title">优先级${colNodeLength}</span>
+                                    <svg class="svg-icon copy" viewBox="0 0 1024 1024" width="1em" height="1em"><defs></defs><path d="M637.873 157.538c60.731 0 110.829 47.262 110.829 106.496v576.119c0 55.768-44.348 100.824-100.274 105.944l-10.555.552H160.532c-60.81 0-110.907-47.262-110.907-106.496V264.034c0-59.313 50.097-106.496 110.828-106.496h477.341zm0 68.924H160.532c-23.631 0-41.984 17.329-41.984 37.572v576.119c0 20.243 18.353 37.573 41.905 37.573h477.341c23.631 0 41.984-17.33 41.984-37.573V264.034c0-20.322-18.353-37.572-41.905-37.572zM834.796 0c60.731 0 110.829 47.262 110.829 106.496v576.118c0 59.235-50.098 106.496-110.829 106.496a34.422 34.422 0 01-6.222-68.372l6.222-.55c23.631 0 41.906-17.33 41.906-37.574V106.496c0-20.322-18.354-37.573-41.906-37.573H357.455c-21.032 0-37.81 13.627-41.354 30.956l-.63 6.617a34.422 34.422 0 11-68.923 0C246.548 47.183 296.645 0 357.376 0h477.342zM426.772 491.284a43.323 43.323 0 010 86.646H253.479a43.323 43.323 0 010-86.646h173.293zm86.646-173.293a43.323 43.323 0 010 86.647H253.479a43.323 43.323 0 010-86.647h259.939z"></path></svg>
+                                    <svg class="svg-icon close" viewBox="0 0 1024 1024" width="1em" height="1em"><defs></defs><path d="M512 451.67L768.427 195.2a42.667 42.667 0 1160.373 60.33L572.31 512 828.8 768.427a42.667 42.667 0 11-60.33 60.373L512 572.31 255.573 828.8a42.667 42.667 0 11-60.373-60.33L451.69 512 195.2 255.573a42.667 42.667 0 1160.33-60.373L512 451.69z"></path></svg>
+                                </div>
+                                <div class="content" data-spm-anchor-id="0.0.0.i23.5c424490bfDRDb">条件</div>
+                            </div>
+                            <div class="add-node-btn"><button class="btn" type="button"><span class="layui-icon layui-icon-add-1"></span></button></div>
+                        </div>
+                    </div>
+                </div>
+                `
+            $(this).siblings('.col-box').last().children('.top-right-cover-line,.bottom-right-cover-line').remove()
+            $(this).parent().append(rowNodeStr)
+            lineNode($(this).siblings('.col-box'))
+        })
+
+        // 平行条件左互换
+        $(document).on('click', '.auto-judge .sort-left', function () {
+            var thisNode = $(this).parents('.col-box').eq(0)
+            var prevNode = $(this).parents('.col-box').eq(0).prev()
+            thisNode.insertBefore(prevNode);
+            lineNode($(this).parents('.branch-box').eq(0).children('.col-box'))
+
+        })
+
+        // 平行条件右互换
+        $(document).on('click', '.auto-judge .sort-right', function () {
+            var thisNode = $(this).parents('.col-box').eq(0)
+            var prevNode = $(this).parents('.col-box').eq(0).next()
+            thisNode.insertAfter(prevNode);
+            lineNode($(this).parents('.branch-box').eq(0).children('.col-box'))
+        })
+
+        // 删除平行节点
+        $(document).on('click', '.auto-judge .close', function () {
+            var thisParent = $(this).parents('.branch-box').eq(0)
+            var parentLeng = $(this).parents('.branch-box').eq(0).children('.col-box').length
+            if (parentLeng <= 2) {
+                var newNodeStr = $($(this).parents('.col-box').eq(0).siblings('.col-box').html())
+                var str = ''
+                newNodeStr.each(function () {
+                    if ($(this).hasClass('branch-wrap') || $(this).hasClass('node-wrap')) {
+                        str += $(this).prop('outerHTML')
+                    }
+                })
+                $(this).parents('.branch-wrap').eq(0).after(str)
+                $(this).parents('.branch-wrap').eq(0).remove()
+            } else {
+                $(this).parents('.col-box').eq(0).remove()
+            }
+            lineNode(thisParent.children('.col-box'))
+        })
+
+        // 优先级文字修改
+        function lineNode(node) {
+            var sortLeft = `<div class="sort-left"><svg class="svg-icon left" viewBox="0 0 1024 1024" width="1em" height="1em"><defs><style></style></defs><path d="M403.046 529.203l373.863-373.76a27.955 27.955 0 000-39.629l-39.527-39.628a27.955 27.955 0 00-39.628 0L264.602 509.338a27.955 27.955 0 000 39.628l433.152 433.152a27.814 27.814 0 0039.628 0l39.527-39.526a27.955 27.955 0 000-39.526l-373.76-373.863z"></path></svg></div>`
+            var sortRight = `<div class="sort-right"><svg class="svg-icon right" viewBox="0 0 1024 1024" width="1em" height="1em"><defs><style></style></defs><path d="M638.362 529.203l-373.76-373.76a27.955 27.955 0 010-39.629l39.526-39.628a27.955 27.955 0 0139.629 0l433.152 433.152a27.955 27.955 0 010 39.628L343.757 982.118a27.955 27.955 0 01-39.629 0l-39.629-39.526a27.955 27.955 0 010-39.526l373.863-373.863z"></path></svg></div>`
+            node.each(function (i, t) {
+                $(this).children('.condition-node').find('.priority-title').text(`优先级${i + 1}`)
+                $(this).children('.condition-node').find('.sort-left,.sort-right').remove()
+                $(this).children('.condition-node').find('.auto-judge').prepend(sortLeft)
+                $(this).children('.condition-node').find('.auto-judge').append(sortRight)
+                $(this).children('.top-left-cover-line').remove()
+                $(this).children('.top-right-cover-line').remove()
+                $(this).children('.bottom-left-cover-line').remove()
+                $(this).children('.bottom-right-cover-line').remove()
+                if (i == 0) {
+                    $(this).children('.condition-node').find('.sort-left').remove()
+                    $(this).prepend(`<div class="top-left-cover-line"></div><div class="bottom-left-cover-line"></div>`)
+                } else if (i == node.length - 1) {
+                    $(this).children('.condition-node').find('.sort-right').remove()
+                    $(this).prepend(`<div class="top-right-cover-line"></div><div class="bottom-right-cover-line"></div>`)
+                }
+            })
+        }
+
+
+    })
+</script>
+</body>
+
+</html>
